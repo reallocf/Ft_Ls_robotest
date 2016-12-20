@@ -821,7 +821,7 @@ while [[ $LAYER_ONE == 1 ]] ; do
 			echo
 			echo "Ping csummers if you find any bugs or want to suggest more fun tests"
 			echo "Or just want to hang out with him"
-			echo "He gets lonely on cold night alone in the lab"
+			echo "He gets lonely on cold nights alone in the lab"
 			echo "And nothing warms him up like free snacks :+1:" ;;
 
 		"q")
