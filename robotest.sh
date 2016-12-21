@@ -69,6 +69,7 @@ while [[ $LAYER_ONE == 1 ]] ; do
 				echo "e) -t test"
 				echo "f) -R test"
 				echo "g) mixed flags test"
+				echo "h) -f test (bonus)"
 				echo "q) back"
 				echo
 				read -n1 TARGET_TWO
@@ -80,7 +81,7 @@ while [[ $LAYER_ONE == 1 ]] ; do
 						echo "ls -1 ~/.tmp/temp_dir"
 						ls -1 ~/.tmp/temp_dir
 						echo
-						echo "./ft_ls -1 ~/.tmp/temp_dir"
+						echo "./ft_ls ~/.tmp/temp_dir"
 						./ft_ls ~/.tmp/temp_dir
 						echo
 						ls -1 ~/.tmp/temp_dir > ~/.tmp/std_1a
@@ -215,6 +216,26 @@ while [[ $LAYER_ONE == 1 ]] ; do
 						rm -f ~/.tmp/std_1g
 						rm -f ~/.tmp/mine_1g ;;
 
+					"h")
+						clear
+						echo "ls -f1 ~/.tmp/temp_dir"
+						ls -f1 ~/.tmp/temp_dir
+						echo
+						echo "./ft_ls -f1 ~/.tmp/temp_dir"
+						./ft_ls -f ~/.tmp/temp_dir
+						echo
+						ls -f1 ~/.tmp/temp_dir > ~/.tmp/std_1f
+						./ft_ls -f ~/.tmp/temp_dir > ~/.tmp/mine_1f
+						diff ~/.tmp/std_1f ~/.tmp/mine_1f > ~/.tmp/res_1f
+						if [[ -s ~/.tmp/res_1f ]] ; then
+							echo "***FAIL: see ~/.tmp/res_1f for diff***"
+						else
+							echo "***SUCCESS: diff of two outputs is empty***"
+							rm -f ~/.tmp/res_1f
+						fi ;
+						rm -f ~/.tmp/std_1f
+						rm -f ~/.tmp/mine_1f ;;
+
 					"q")
 						rm -rf ~/.tmp/temp_dir
 						(( LAYER_TWO = 0 )) ;;
@@ -257,6 +278,7 @@ while [[ $LAYER_ONE == 1 ]] ; do
 				echo "e) -t test passed as params"
 				echo "f) -R test passed as params"
 				echo "g) mixed flags test passed as params"
+				echo "h) -f test passed as params (bonus)"
 				echo "q) back"
 				echo
 				read -n1 TARGET_TWO
@@ -403,6 +425,26 @@ while [[ $LAYER_ONE == 1 ]] ; do
 						rm -f ~/.tmp/std_2g
 						rm -f ~/.tmp/mine_2g ;;
 
+					"h")
+						clear
+						echo "ls -f1 ~/.tmp/temp_dir/*"
+						ls -f1 ~/.tmp/temp_dir/*
+						echo
+						echo "./ft_ls -f1 ~/.tmp/temp_dir/*"
+						./ft_ls -f ~/.tmp/temp_dir/*
+						echo
+						ls -f1 ~/.tmp/temp_dir/* > ~/.tmp/std_2f
+						./ft_ls -f ~/.tmp/temp_dir/* > ~/.tmp/mine_2f
+						diff ~/.tmp/std_2f ~/.tmp/mine_2f > ~/.tmp/res_2f
+						if [[ -s ~/.tmp/res_2f ]] ; then
+							echo "***FAIL: see ~/.tmp/res_2f for diff***"
+						else
+							echo "***SUCCESS: diff of two outputs is empty***"
+							rm -f ~/.tmp/res_2f
+						fi ;
+						rm -f ~/.tmp/std_2f
+						rm -f ~/.tmp/mine_2f ;;
+
 					"q")
 						rm -rf ~/.tmp/temp_dir
 						(( LAYER_TWO = 0 )) ;;
@@ -524,8 +566,8 @@ while [[ $LAYER_ONE == 1 ]] ; do
 						echo
 						echo "./ft_ls -lR ~/.tmp/temp_dir"
 						./ft_ls -lR ~/.tmp/temp_dir
-						ls -lR /.tmp/temp_dir > ~/.tmp/std_3d
-						./ft_ls -lR /.tmp/temp_dir > ~/.tmp/mine_3d
+						ls -lR ~/.tmp/temp_dir > ~/.tmp/std_3d
+						./ft_ls -lR ~/.tmp/temp_dir > ~/.tmp/mine_3d
 						diff ~/.tmp/std_3d ~/.tmp/mine_3d > ~/.tmp/res_3d
 						echo
 						if [[ -s ~/.tmp/res_3d ]] ; then
@@ -686,6 +728,8 @@ while [[ $LAYER_ONE == 1 ]] ; do
 				echo "a) standard test"
 				echo "b) nanosecond test"
 				echo "c) equal time test"
+				echo "d) access time test (bonus)"
+				echo "e) change time test (bonus)"
 				echo "q) back"
 				echo
 				read -n1 TARGET_TWO
@@ -781,6 +825,76 @@ while [[ $LAYER_ONE == 1 ]] ; do
 						fi ;
 						rm -f ~/.tmp/std_5c
 						rm -f ~/.tmp/mine_5c ;;
+
+					"d")
+						clear
+						mkdir -p ~/.tmp/temp_dir
+						touch -at 9999081011 ~/.tmp/temp_dir/file1
+						touch ~/.tmp/temp_dir/file2
+						touch -at 9999115045 ~/.tmp/temp_dir/file3
+						touch -at 17091104 ~/.tmp/temp_dir/file4
+						touch ~/.tmp/temp_dir/file5
+						touch -at 12115659 ~/.tmp/temp_dir/file6
+						touch -at 17012020 ~/.tmp/temp_dir/file7
+						touch -at 9412290106 ~/.tmp/temp_dir/file8
+						touch -at 1612250101 ~/.tmp/temp_dir/file9
+						echo "ls -lu ~/.tmp/temp_dir"
+						ls -ltu ~/.tmp/temp_dir
+						echo
+						echo "./ft_ls -lu ~/.tmp/temp_dir"
+						./ft_ls -ltu ~/.tmp/temp_dir
+						echo
+						ls -ltu ~/.tmp/temp_dir > ~/.tmp/std_5a
+						./ft_ls -ltu ~/.tmp/temp_dir > ~/.tmp/mine_5a
+						diff ~/.tmp/std_5a ~/.tmp/mine_5a > ~/.tmp/res_5a
+						if [[ -s ~/.tmp/res_5a ]] ; then
+							echo "***FAIL: see ~/.tmp/res_5a for diff***"
+						else
+							echo "***SUCCESS: diff of two outputs is empty***"
+							rm -f ~/.tmp/res_5a
+						fi ;
+						rm -f ~/.tmp/std_5a
+						rm -f ~/.tmp/mine_5a ;;
+
+					"e")
+						clear
+						mkdir -p ~/.tmp/temp_dir
+						touch ~/.tmp/temp_dir/file1
+						touch ~/.tmp/temp_dir/file2
+						touch ~/.tmp/temp_dir/file3
+						touch ~/.tmp/temp_dir/file4
+						touch ~/.tmp/temp_dir/file5
+						touch ~/.tmp/temp_dir/file6
+						touch ~/.tmp/temp_dir/file7
+						touch ~/.tmp/temp_dir/file8
+						touch ~/.tmp/temp_dir/file9
+						chmod 744 ~/.tmp/temp_dir/file2
+						chmod 744 ~/.tmp/temp_dir/file4
+						chmod 744 ~/.tmp/temp_dir/file6
+						chmod 744 ~/.tmp/temp_dir/file8
+						chmod 744 ~/.tmp/temp_dir/file3
+						chmod 644 ~/.tmp/temp_dir/file2
+						chmod 644 ~/.tmp/temp_dir/file4
+						chmod 644 ~/.tmp/temp_dir/file6
+						chmod 644 ~/.tmp/temp_dir/file8
+						chmod 644 ~/.tmp/temp_dir/file3
+						echo "ls -lu ~/.tmp/temp_dir"
+						ls -ltc ~/.tmp/temp_dir
+						echo
+						echo "./ft_ls -lu ~/.tmp/temp_dir"
+						./ft_ls -ltc ~/.tmp/temp_dir
+						echo
+						ls -ltc ~/.tmp/temp_dir > ~/.tmp/std_5a
+						./ft_ls -ltc ~/.tmp/temp_dir > ~/.tmp/mine_5a
+						diff ~/.tmp/std_5a ~/.tmp/mine_5a > ~/.tmp/res_5a
+						if [[ -s ~/.tmp/res_5a ]] ; then
+							echo "***FAIL: see ~/.tmp/res_5a for diff***"
+						else
+							echo "***SUCCESS: diff of two outputs is empty***"
+							rm -f ~/.tmp/res_5a
+						fi ;
+						rm -f ~/.tmp/std_5a
+						rm -f ~/.tmp/mine_5a ;;
 
 					"q")
 						rm -rf ~/.tmp/temp_dir
